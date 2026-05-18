@@ -83,6 +83,7 @@ def create_dataset(audio_path, out_path):
     file_paths = cut_to_segments(audio, timestamps, out_path)
     with open(meta_path, 'w', encoding='utf-8') as out:
         for path, text in zip(file_paths, transcripts):
+            text = accentizer.process_all(text)
             line = f'{os.path.abspath(path)}|{text}\n'
             out.write(line)
     
