@@ -1,4 +1,5 @@
 import os
+import argparse
 import torch
 import gigaam
 import resampy
@@ -86,6 +87,11 @@ def create_dataset(audio_path, out_path):
             text = accentizer.process_all(text)
             line = f'{os.path.abspath(path)}|{text}\n'
             out.write(line)
-    
 
-create_dataset('./original.wav', './out')
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--file', required=True)
+parser.add_argument('--out_dir', default='./out')
+args = parser.parse_args()
+
+create_dataset(args.file, args.out_dir)
